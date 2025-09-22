@@ -9,7 +9,7 @@
       @for (item of items(); track item.product.id) {
         <div class="cart-item">
           <div class="item-image">
-            <img [src]="item.product.images?.[0] || 'assets/placeholder.jpg'"
+            <img [src]="item.product.images[0] || 'assets/placeholder.jpg'"
                  [alt]="item.product.title"
                  class="product-image">
           </div>
