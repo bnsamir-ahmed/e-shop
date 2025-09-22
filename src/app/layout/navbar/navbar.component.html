@@ -1,0 +1,55 @@
+<div class="navbar-container">
+  <ul nz-menu nzMode="horizontal" class="navbar">
+    <!-- Logo -->
+    <nz-menu-item routerLink="/" routerLinkActive="active" class="logo-item">
+      <span class="logo">E-Shop</span>
+    </nz-menu-item>
+
+    <!-- Navigation Links -->
+    <div class="nav-links">
+      <nz-menu-item routerLink="/products" routerLinkActive="active">
+        Products
+      </nz-menu-item>
+
+      <nz-menu-item routerLink="/offers" routerLinkActive="active">
+        Offers
+      </nz-menu-item>
+
+      <nz-menu-item routerLink="/about" routerLinkActive="active">
+        About
+      </nz-menu-item>
+
+      <!-- <nz-menu-item routerLink="/about" routerLinkActive="active">
+        About
+      </nz-menu-item>
+       <nz-menu-item routerLink="/about" routerLinkActive="active">
+        About
+      </nz-menu-item>
+       <nz-menu-item routerLink="/about" routerLinkActive="active">
+        About
+      </nz-menu-item> -->
+    </div>
+
+    <!-- Right side (User + Cart) -->
+    <div class="navbar-right">
+      <!-- User Dropdown -->
+      <!-- <nz-dropdown nzTrigger="click"> -->
+        <a nz-dropdown>
+          <i nz-icon nzType="user"></i> Account
+        </a>
+        <!-- <ul nz-menu>
+          <li nz-menu-item routerLink="/login">Login</li>
+          <li nz-menu-item routerLink="/register">Register</li>
+          <li nz-menu-item routerLink="/profile">Profile</li>
+        </ul> -->
+      <!-- </nz-dropdown> -->
+
+      <!-- Cart -->
+      <a routerLink="/cart" class="cart-link">
+        <nz-badge [nzCount]="cartCount()">
+          <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
+        </nz-badge>
+      </a>
+    </div>
+  </ul>
+</div>

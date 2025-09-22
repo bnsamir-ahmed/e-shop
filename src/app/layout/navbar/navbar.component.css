@@ -1,0 +1,53 @@
+
+.navbar-container {
+  width: 100%;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  background: #fff;
+  box-shadow: 0 2px 8px #f0f1f2;
+  width: 100%;
+}
+
+.logo-item {
+  flex-shrink: 0;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #1890ff;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+  gap: 0;
+}
+
+.nav-links nz-menu-item {
+  margin: 0 1rem;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.cart-link {
+  font-size: 1.2rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.cart-link:hover {
+  color: #1890ff;
+}

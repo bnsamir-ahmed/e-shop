@@ -1,0 +1,72 @@
+
+@if(product()){
+  <div class="product-container" >
+    <div class="product-card">
+      <div class="product-image">
+        <img [src]="product()?.images?.[0] || 'assets/placeholder.jpg'" [alt]="product()?.title" class="main-image">
+      </div>
+
+      <div class="product-details">
+        <h1 class="product-title">{{ product()?.title }}</h1>
+
+
+
+        <div class="product-price">
+          <span class="current-price">${{ product()?.price }}</span>
+        </div>
+
+        <p class="product-description">{{ product()?.description }}</p>
+
+        <div class="product-meta">
+          <div class="meta-item">
+            <span class="label">Category:</span>
+            <span class="value">{{ product()?.category?.name }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="label">Category:</span>
+            <span class="value">{{ product()?.category }}</span>
+          </div>
+
+        </div>
+
+        <div class="product-actions">
+          @if (isInCart()) {
+            <div class="cart-controls">
+
+              <button class="btn btn-danger" (click)="removeFromCart()">
+                Remove from Cart
+              </button>
+            </div>
+          } @else {
+            <button class="btn btn-primary" (click)="addToCart()">
+              Add to Cart
+            </button>
+          }
+          <button class="btn btn-secondary">Buy Now</button>
+        </div>
+        @if (isInCart()) {
+          <div class="cart-controls">
+            <button class="btn btn-outline" (click)="updateQuantity(cartQuantity() - 1)">
+              <i class="icon-plus"></i> --
+            </button>
+            <span class="quantity-display">{{ cartQuantity() }}</span>
+            <button class="btn btn-outline" (click)="updateQuantity(cartQuantity() + 1)">
+              <i class="icon-plus"></i>+</button>
+          </div>
+
+
+          }
+
+      </div>
+    </div>
+  </div>
+
+}@else {
+  <div class="loading" >
+    <div class="spinner"></div>
+    <p>Loading product details...</p>
+  </div>
+
+}
+
+
