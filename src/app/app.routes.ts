@@ -25,6 +25,22 @@ export const routes: Routes = [
     loadComponent: () => import('./cart/cart.component').then(c => c.CartComponent)
   },
   {
+    path: 'checkout',
+    loadComponent: () => import('./checkout/checkout.component').then(c => c.CheckoutComponent)
+  },
+  {
+    path: 'about',
+    loadComponent: () => import('./about/about.component').then(c => c.AboutComponent)
+  },
+  {
+    path: 'offers',
+    loadComponent: () => import('./offers/offers.component').then(c => c.OffersComponent)
+  },
+  {
+    path: 'account/history',
+    loadComponent: () => import('./account/account-history.component').then(c => c.AccountHistoryComponent)
+  },
+  {
     path:'',
     redirectTo:'products',
      pathMatch: 'full'

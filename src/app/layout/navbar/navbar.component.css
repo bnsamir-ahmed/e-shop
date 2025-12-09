@@ -33,6 +33,7 @@
 
 .nav-links nz-menu-item {
   margin: 0 1rem;
+  cursor: pointer;
 }
 
 .navbar-right {

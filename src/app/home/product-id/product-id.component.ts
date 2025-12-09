@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../modal/products.modal';
 import { CartService } from '../../services/cart.service';
 
@@ -12,6 +12,7 @@ import { CartService } from '../../services/cart.service';
 })
 export class ProductIdComponent implements OnInit {
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
   private cartService = inject(CartService);
 
   product = signal<Product | null>(null);
@@ -63,6 +64,21 @@ export class ProductIdComponent implements OnInit {
     const currentProduct = this.product();
     if (currentProduct) {
       this.cartService.updateQuantity(currentProduct.id, quantity);
+    }
+  }
+
+  /**
+   * Add product to cart and navigate to cart page
+   */
+  buyNow(): void {
+    const currentProduct = this.product();
+    if (currentProduct) {
+      // Add to cart if not already in cart
+      if (!this.isInCart()) {
+        this.cartService.addToCart(currentProduct, 1);
+      }
+      // Navigate to cart page
+      this.router.navigate(['/cart']);
     }
   }
 }

@@ -1,0 +1,59 @@
+<div class="offers-container">
+  <div class="offers-header">
+    <h1 class="offers-title">Special Offers</h1>
+    <p class="offers-subtitle">Get 10% off on selected products!</p>
+  </div>
+
+  @if (isLoading()) {
+    <div class="loading-container">
+      <nz-spin nzSize="large"></nz-spin>
+    </div>
+  } @else if (products().length === 0) {
+    <div class="no-products-container">
+      <div class="no-products-message">
+        <h3>No offers available</h3>
+        <p>Check back later for exciting deals!</p>
+      </div>
+    </div>
+  } @else {
+    <div class="products-grid">
+      @for (product of products(); track product.id) {
+        <nz-card
+          (click)="viewProduct(product.id)"
+          class="product-card"
+          [nzCover]="coverTemplate"
+          [nzBodyStyle]="{ padding: '16px' }"
+        >
+          <ng-template #coverTemplate>
+            <div class="image-container">
+              <div class="discount-badge">-{{ discountPercentage }}%</div>
+              <img
+                [alt]="product.title"
+                [src]="product.images[0]"
+                class="product-image"
+                loading="lazy"
+              />
+            </div>
+          </ng-template>
+
+          <nz-card-meta
+            [nzTitle]="product.title"
+            [nzDescription]="product.description.slice(0, 80) + '...'"
+          >
+          </nz-card-meta>
+
+          <div class="product-details">
+            <div class="price-section">
+              <span class="discounted-price">${{ product.discountedPrice }}</span>
+              <span class="original-price">${{ product.originalPrice }}</span>
+            </div>
+            <div class="category-badge">
+              {{ product.category.name }}
+            </div>
+          </div>
+        </nz-card>
+      }
+    </div>
+  }
+</div>
+

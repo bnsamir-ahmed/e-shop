@@ -1,0 +1,178 @@
+<div class="checkout-container">
+  <div class="checkout-header">
+    <h1>Checkout</h1>
+    <p class="checkout-subtitle">Complete your purchase</p>
+  </div>
+
+  @if (items().length > 0) {
+    <div class="checkout-content">
+      <div class="checkout-main">
+        <div class="checkout-section">
+          <h2>Shipping Information</h2>
+          <form [formGroup]="shippingForm" class="checkout-form">
+            <div class="form-group">
+              <label for="fullName">Full Name</label>
+              <input 
+                type="text" 
+                id="fullName" 
+                formControlName="fullName"
+                [class.error]="shippingForm.get('fullName')?.invalid && shippingForm.get('fullName')?.touched">
+              @if (shippingForm.get('fullName')?.invalid && shippingForm.get('fullName')?.touched) {
+                <span class="error-message">Full name is required (min 2 characters)</span>
+              }
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input 
+                type="email" 
+                id="email" 
+                formControlName="email"
+                [class.error]="shippingForm.get('email')?.invalid && shippingForm.get('email')?.touched">
+              @if (shippingForm.get('email')?.invalid && shippingForm.get('email')?.touched) {
+                <span class="error-message">Valid email is required</span>
+              }
+            </div>
+            <div class="form-group">
+              <label for="address">Address</label>
+              <input 
+                type="text" 
+                id="address" 
+                formControlName="address"
+                [class.error]="shippingForm.get('address')?.invalid && shippingForm.get('address')?.touched">
+              @if (shippingForm.get('address')?.invalid && shippingForm.get('address')?.touched) {
+                <span class="error-message">Address is required (min 5 characters)</span>
+              }
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="city">City</label>
+                <input 
+                  type="text" 
+                  id="city" 
+                  formControlName="city"
+                  [class.error]="shippingForm.get('city')?.invalid && shippingForm.get('city')?.touched">
+                @if (shippingForm.get('city')?.invalid && shippingForm.get('city')?.touched) {
+                  <span class="error-message">City is required</span>
+                }
+              </div>
+              <div class="form-group">
+                <label for="zipCode">Zip Code</label>
+                <input 
+                  type="text" 
+                  id="zipCode" 
+                  formControlName="zipCode"
+                  [class.error]="shippingForm.get('zipCode')?.invalid && shippingForm.get('zipCode')?.touched">
+                @if (shippingForm.get('zipCode')?.invalid && shippingForm.get('zipCode')?.touched) {
+                  <span class="error-message">Valid zip code is required (e.g., 12345)</span>
+                }
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="checkout-section">
+          <h2>Payment Information</h2>
+          <form [formGroup]="paymentForm" class="checkout-form">
+            <div class="form-group">
+              <label for="cardNumber">Card Number</label>
+              <input 
+                type="text" 
+                id="cardNumber" 
+                formControlName="cardNumber"
+                placeholder="1234 5678 9012 3456"
+                [class.error]="paymentForm.get('cardNumber')?.invalid && paymentForm.get('cardNumber')?.touched">
+              @if (paymentForm.get('cardNumber')?.invalid && paymentForm.get('cardNumber')?.touched) {
+                <span class="error-message">Valid card number is required (16 digits)</span>
+              }
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="expiryDate">Expiry Date</label>
+                <input 
+                  type="text" 
+                  id="expiryDate" 
+                  formControlName="expiryDate"
+                  placeholder="MM/YY"
+                  [class.error]="paymentForm.get('expiryDate')?.invalid && paymentForm.get('expiryDate')?.touched">
+                @if (paymentForm.get('expiryDate')?.invalid && paymentForm.get('expiryDate')?.touched) {
+                  <span class="error-message">
+                    @if (paymentForm.get('expiryDate')?.errors?.['required']) {
+                      Expiry date is required
+                    } @else if (paymentForm.get('expiryDate')?.errors?.['invalidFormat']) {
+                      Invalid format. Use MM/YY (e.g., 12/25)
+                    } @else if (paymentForm.get('expiryDate')?.errors?.['expired']) {
+                      Card has expired
+                    } @else {
+                      Valid expiry date is required (MM/YY)
+                    }
+                  </span>
+                }
+              </div>
+              <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input 
+                  type="text" 
+                  id="cvv" 
+                  formControlName="cvv"
+                  placeholder="123"
+                  [class.error]="paymentForm.get('cvv')?.invalid && paymentForm.get('cvv')?.touched">
+                @if (paymentForm.get('cvv')?.invalid && paymentForm.get('cvv')?.touched) {
+                  <span class="error-message">Valid CVV is required (3-4 digits)</span>
+                }
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="checkout-sidebar">
+        <div class="order-summary">
+          <h2>Order Summary</h2>
+          <div class="order-items">
+            @for (item of items(); track item.product.id) {
+              <div class="order-item">
+                <div class="order-item-info">
+                  <span class="order-item-name">{{ item.product.title }}</span>
+                  <span class="order-item-quantity">Qty: {{ item.quantity }}</span>
+                </div>
+                <span class="order-item-price">${{ (item.product.price * item.quantity).toFixed(2) }}</span>
+              </div>
+            }
+          </div>
+          <div class="order-totals">
+            <div class="total-row">
+              <span>Subtotal:</span>
+              <span>${{ totalPrice().toFixed(2) }}</span>
+            </div>
+            <div class="total-row">
+              <span>Shipping:</span>
+              <span>Free</span>
+            </div>
+            <div class="total-row total">
+              <span>Total:</span>
+              <span>${{ totalPrice().toFixed(2) }}</span>
+            </div>
+          </div>
+          <button 
+            class="btn btn-primary btn-block" 
+            [disabled]="!isFormValid"
+            (click)="onPlaceOrder()">
+            Place Order
+          </button>
+          <button class="btn btn-secondary btn-block" routerLink="/cart">
+            Back to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="empty-checkout">
+      <h2>Your cart is empty</h2>
+      <p>Add some products to checkout!</p>
+      <button class="btn btn-primary" routerLink="/products">
+        Start Shopping
+      </button>
+    </div>
+  }
+</div>
+

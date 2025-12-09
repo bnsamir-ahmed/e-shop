@@ -22,10 +22,10 @@
             <span class="label">Category:</span>
             <span class="value">{{ product()?.category?.name }}</span>
           </div>
-          <div class="meta-item">
+          <!-- <div class="meta-item">
             <span class="label">Category:</span>
             <span class="value">{{ product()?.category }}</span>
-          </div>
+          </div> -->
 
         </div>
 
@@ -42,7 +42,7 @@
               Add to Cart
             </button>
           }
-          <button class="btn btn-secondary">Buy Now</button>
+          <button class="btn btn-secondary" (click)="buyNow()">Buy Now</button>
         </div>
         @if (isInCart()) {
           <div class="cart-controls">
